@@ -1,30 +1,40 @@
-# React + TypeScript + Vite
+# React Autocomplete Component
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This React+Vite application is built to implement an autocomplete component that has the following features:
 
-Currently, two official plugins are available:
+- Is universal, can trigger api calls in a debounced fashion (e.g for search engines)
+- Can be interacted by with the keyboard, listens for ArrowUp, ArrowDown, Enter and Escape keys to do basic interaction
+- Is built for performance. By using a combination of modern techniques, it saves resources and is speedy while providing a satisfactory user experience
+- This example implementation uses the [TMDB API](https://www.themoviedb.org/) to enable movie searching
+- Highlights keyword matches in the suggestions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Run the application in development mode
 
-## Expanding the ESLint configuration
+To run the application in development mode you should do the following:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Navigate to the project root folder
+2. Run `yarn install` (if you don't have yarn already, run `npm i -g yarn`)
+3. Run `yarn dev` in order to run the development server
 
-- Configure the top-level `parserOptions` property like this:
+## Run the dockerized application
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+To run this application from docker you should
+
+1. Get [Docker](https://docs.docker.com/get-docker/)
+2. Build the image by running:
+
+```
+docker build . -t "autocomplete"
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+4. After Docker is done building the image, you should be able to see it by running:
+
+```
+docker images
+```
+
+1. If you succesfully run these commands and are able to see the docker image, start the app with:
+
+```
+docker run -p 8080:8080 sample-project:v1.0
+```
