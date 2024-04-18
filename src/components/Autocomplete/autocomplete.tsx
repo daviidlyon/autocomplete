@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { SuggestionsList } from './components';
 import styles from './styles.module.css';
 import { useClickOutside } from '../../hooks';
@@ -15,7 +15,7 @@ type Props = {
 export function Autocomplete(props: Props) {
   const {
     options,
-    onChange,
+    onChange: propsOnChange,
     suggestionsLimit,
     autofocus,
     onItemSelect,
@@ -25,25 +25,25 @@ export function Autocomplete(props: Props) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [focused, setFocused] = useState(false);
   const containerRef = useClickOutside(() => setFocused(false));
+  const inputRef = useRef(null);
 
   const changeHandler = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
       setValue(value);
-      onChange(value);
+      propsOnChange(value);
     },
-    [onChange]
+    [propsOnChange]
   );
-
-  useEffect(() => {
-    console.log('[D] activeIndex:', activeIndex);
-  }, [activeIndex]);
 
   const handleSelect = useCallback(
     (value: string) => {
       onItemSelect(value);
       setValue(value);
       setFocused(false);
+      if (inputRef.current) {
+        (inputRef.current as HTMLInputElement).blur();
+      }
     },
     [onItemSelect]
   );
@@ -67,19 +67,21 @@ export function Autocomplete(props: Props) {
       }
 
       if (event.key === 'Enter') {
+        event.preventDefault();
         handleSelect(options[activeIndex]);
+      }
+
+      if (event.key === 'Escape') {
+        handleSelect('');
       }
     },
     [options, activeIndex, suggestionsLimit, handleSelect]
   );
 
-  const onItemHover = (index: number) => {
-    setActiveIndex(index);
-  };
-
   return (
     <div ref={containerRef} className={styles.autocomplete}>
       <input
+        ref={inputRef}
         className={styles.input}
         onChange={changeHandler}
         onKeyDown={handleKeyDown}
@@ -95,7 +97,7 @@ export function Autocomplete(props: Props) {
           query={value}
           options={options}
           onItemClick={handleSelect}
-          onItemHover={onItemHover}
+          onItemHover={(index: number) => setActiveIndex(index)}
           limit={suggestionsLimit}
         />
       )}

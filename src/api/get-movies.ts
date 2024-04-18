@@ -41,9 +41,8 @@ export async function getMovies(query: string): Promise<MoviesResponse> {
 
 function formatMoviesArray(data: Array<Movie>, query: string): string[] {
   return data.reduce((acc: string[], curr: Movie) => {
-    const year = new Date(curr.release_date).getFullYear();
     return curr.title.toLowerCase().includes(query.toLowerCase())
-      ? [...acc, `${curr.title} (${year})`]
+      ? [...acc, curr.title]
       : acc;
   }, [] as string[]);
 }

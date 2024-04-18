@@ -12,6 +12,7 @@ function App() {
   const [items, setItems] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [selected, setSelected] = useState<string>('');
   const lastSearchTimestamp = useRef<number>(0);
 
   const fetchAPI = async (query: string) => {
@@ -35,8 +36,8 @@ function App() {
     debouncedFetchAPI(value);
   };
 
-  const clickHandler = (value: string) => {
-    console.log('[D] selected: ', value);
+  const selectHandler = (value: string) => {
+    setSelected(value);
   };
 
   return (
@@ -47,9 +48,15 @@ function App() {
         onChange={handleChange}
         options={items}
         suggestionsLimit={SUGGESTIONS_LIMIT}
-        onItemSelect={clickHandler}
+        onItemSelect={selectHandler}
         autofocus
       />
+      {selected && (
+        <div>
+          <h3>Your Selection is: </h3>
+          {selected}
+        </div>
+      )}
       <SnackBar message={error} duration={5000} />
     </div>
   );

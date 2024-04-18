@@ -27,11 +27,7 @@ export function SuggestionsList(props: Props) {
     return options.slice(0, limit);
   }, [options, limit]);
 
-  if (loading) {
-    return <UserMessaging content='Loading...' />;
-  }
-
-  if (query && !options.length) {
+  if (query && !loading && !options.length) {
     return <UserMessaging content='No results...' />;
   }
 
@@ -52,6 +48,7 @@ export function SuggestionsList(props: Props) {
           </li>
         ))}
       </ul>
+      {query && loading && <UserMessaging content='Loading...' />}
     </div>
   );
 }
