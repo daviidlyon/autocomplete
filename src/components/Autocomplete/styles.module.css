@@ -1,0 +1,9 @@
+.autocomplete {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+}

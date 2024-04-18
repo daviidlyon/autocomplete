@@ -1,0 +1,19 @@
+.suggestionsContainer {
+  position: absolute;
+  background-color: gray;
+  width: 100%;
+  text-align: left;
+}
+
+.suggestionsList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.messagingContainer {
+  padding: 20px;
+  text-align: center;
+  color: #c1c1c1;
+}
