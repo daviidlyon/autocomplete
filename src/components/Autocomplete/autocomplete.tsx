@@ -70,7 +70,7 @@ export function Autocomplete(props: Props) {
 
       if (event.key === 'Enter') {
         event.preventDefault();
-        handleSelect(options[activeIndex]);
+        handleSelect(options[activeIndex] || value);
       }
 
       if (event.key === 'Escape') {
