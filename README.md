@@ -1,4 +1,5 @@
 # React Autocomplete Component
+![demo](https://github.com/daviidlyon/autocomplete/assets/81327246/4f9370ca-44ea-4240-869c-059be8109d6e)
 
 This React+Vite application is built to implement an autocomplete component that has the following features:
 
