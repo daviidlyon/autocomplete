@@ -48,3 +48,4 @@ docker run -p 8080:8080 sample-project:v1.0
 - .env should not be commited with sensitive information, this is done just for demo purposes
 - Some upgrades can be done for this component, by making it as agnostic as possible we can use it for multiple types of use cases
 - Last selected is typically used in search engines, however, this is not a general use-case for an autocomplete component, this is an enhancement that can be done if the requirements are specified
+- We can do testing, this will require some time and using external libraries such as RTL and jest
