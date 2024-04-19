@@ -41,8 +41,17 @@
   color: #888;
 }
 
-.main-container {
-  width: 500px;
+@media (max-width: 559px) {
+  .main-container {
+    width: 80vw;
+    min-width: 250px;
+  }
+}
+
+@media (min-width: 560px) {
+  .main-container {
+    min-width: 500px;
+  }
 }
 
 .snackbar {
