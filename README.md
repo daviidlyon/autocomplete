@@ -8,6 +8,10 @@ This React+Vite application is built to implement an autocomplete component that
 - This example implementation uses the [TMDB API](https://www.themoviedb.org/) to enable movie searching
 - Highlights keyword matches in the suggestions
 
+## See the app working
+
+You can visit https://autocomplete-movie-searcher.netlify.app/ to see the app running live!
+
 ## Run the application in development mode
 
 To run the application in development mode you should do the following:
