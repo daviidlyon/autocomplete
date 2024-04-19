@@ -48,7 +48,6 @@ export function SuggestionsList(props: Props) {
           </li>
         ))}
       </ul>
-      {query && loading && <UserMessaging content='Loading...' />}
     </div>
   );
 }

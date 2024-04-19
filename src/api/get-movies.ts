@@ -16,7 +16,7 @@ type MoviesResponse = {
 };
 
 export async function getMovies(query: string): Promise<MoviesResponse> {
-  const url = API_URL + `?query=${query}`;
+  const url = API_URL + `?query=${query.toLowerCase()}`;
   let movies: string[] = [];
   let error = '';
   try {
@@ -27,6 +27,9 @@ export async function getMovies(query: string): Promise<MoviesResponse> {
     // const delay = (ms: number) =>
     //   new Promise((resolve) => setTimeout(resolve, ms));
     // await delay(2000);
+
+    /* UNCOMMENT IF YOU WANT TO MIMIC ERROR FAILURES */
+    // throw Error('Error!')
 
     if (!response.ok) {
       throw Error('Error in the API call!');

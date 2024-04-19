@@ -1,7 +1,8 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { SuggestionsList } from './components';
 import styles from './styles.module.css';
 import { useClickOutside } from '../../hooks';
+import { Spinner } from '../../assets/icons';
 
 type Props = {
   autofocus: boolean;
@@ -31,6 +32,7 @@ export function Autocomplete(props: Props) {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
       setValue(value);
+      setActiveIndex(-1);
       propsOnChange(value);
     },
     [propsOnChange]
@@ -78,24 +80,33 @@ export function Autocomplete(props: Props) {
     [options, activeIndex, suggestionsLimit, handleSelect]
   );
 
+  const filteredOptions = useMemo(() => {
+    return options.filter((option) =>
+      option.toLowerCase().includes(value.toLowerCase())
+    );
+  }, [options, value]);
+
   return (
     <div ref={containerRef} className={styles.autocomplete}>
-      <input
-        ref={inputRef}
-        className={styles.input}
-        onChange={changeHandler}
-        onKeyDown={handleKeyDown}
-        value={value}
-        onFocus={() => setFocused(true)}
-        autoFocus={autofocus}
-        placeholder='Please type something...'
-      />
+      <div style={{ display: 'flex' }}>
+        <input
+          ref={inputRef}
+          className={styles.input}
+          onChange={changeHandler}
+          onKeyDown={handleKeyDown}
+          value={value}
+          onFocus={() => setFocused(true)}
+          autoFocus={autofocus}
+          placeholder='Please type something...'
+        />
+        {loading && <Spinner className={styles.spinner} />}
+      </div>
       {focused && (
         <SuggestionsList
           activeIndex={activeIndex}
           loading={loading}
           query={value}
-          options={options}
+          options={filteredOptions}
           onItemClick={handleSelect}
           onItemHover={(index: number) => setActiveIndex(index)}
           limit={suggestionsLimit}
