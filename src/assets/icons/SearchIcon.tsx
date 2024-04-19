@@ -1,6 +1,7 @@
 export function SearchIcon() {
   return (
     <svg
+      style={{ flexShrink: 0 }}
       fill='#000000'
       height='15px'
       width='15px'

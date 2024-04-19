@@ -5,7 +5,7 @@ import { debounce } from './utils/debounce';
 import { SnackBar } from './components/Snackbar';
 import { getMovies } from './api/get-movies';
 
-const SUGGESTIONS_LIMIT = 5;
+const SUGGESTIONS_LIMIT = 20;
 const SEARCH_DEBOUNCE_TIME = 300;
 
 function App() {

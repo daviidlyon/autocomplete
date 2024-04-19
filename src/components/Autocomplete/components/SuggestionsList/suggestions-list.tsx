@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import styles from './styles.module.css';
 import { Suggestion } from '../Suggestion';
 import { UserMessaging } from './user-messaging';
+import { scrollIntoViewIfNeeded } from '../../../../utils/scroll-into-view';
 type Props = {
   activeIndex: number;
   options?: string[];
@@ -23,6 +24,13 @@ export function SuggestionsList(props: Props) {
     onItemHover,
   } = props;
 
+  const activeRef = useRef(null);
+  useEffect(() => {
+    if (activeRef.current) {
+      scrollIntoViewIfNeeded(activeRef.current);
+    }
+  }, [activeIndex]);
+
   const displayedOptions = useMemo(() => {
     return options.slice(0, limit);
   }, [options, limit]);
@@ -38,12 +46,13 @@ export function SuggestionsList(props: Props) {
           <li
             key={`${option}-${index}`}
             onMouseEnter={() => onItemHover(index)}
+            ref={activeIndex === index ? activeRef : null}
           >
             <Suggestion
               onClick={onItemClick}
               content={option}
               query={query}
-              active={activeIndex == index}
+              active={activeIndex === index}
             />
           </li>
         ))}

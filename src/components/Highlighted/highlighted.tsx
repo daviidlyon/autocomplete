@@ -1,4 +1,5 @@
 import { escapeRegExp } from '../../utils/escape-regex';
+import styles from './styles.module.css';
 
 type Props = {
   text: string;
@@ -12,7 +13,7 @@ export function Highlighted(props: Props) {
   const parts = text.split(regex);
 
   return (
-    <span>
+    <span className={styles.highlightContainer}>
       {parts.map((part, i) => (
         <span
           key={`${i}-${part}`}
